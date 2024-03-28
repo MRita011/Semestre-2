@@ -1,7 +1,4 @@
-// classe catálogo que gerencia o cadastro de atletas:
-
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Plantel 
 {
@@ -11,17 +8,21 @@ public class Plantel
 		atletas = new ArrayList<Atleta>();
 	}
 
+	public ArrayList<Atleta> getAtletas() {
+		return atletas;
+	}
+
 	// recebe como parâmetro um novo Atleta e o cadastra no sistema.
 	// não pode haver atletas com o mesmo número.
 	// retorna true se o cadastro teve sucesso; ou false em caso contrário.
 
-	public boolean cadastraAtleta(Atleta atleta) {
-		for (Atleta a : atletas) {
+	public boolean cadastraAtleta(Atleta a) {
+		for (Atleta atleta : atletas) {
 			if (a.getNumero() == atleta.getNumero()) {
 				return false; // Já existe um atleta com o mesmo número
 			}
 		}
-		atletas.add(atleta);
+		atletas.add(a);
 		return true; // Cadastro bem-sucedido
 	}
 
@@ -29,12 +30,13 @@ public class Plantel
 	// Se não houver nenhum atleta com este nome retorna null.
 
 	public Atleta consultaAtleta(String nome) {
-		for (Atleta a : atletas) {
-			if (a.getNome().equals(nome))
-				return a;
-		}
-		return null;
+	for (Atleta a : atletas) {
+		if (a.getNome().equals(nome))
+			return a;
 	}
+	return null;
+}
+
 
 	// retorna o atleta com o número indicado.
 	// Se não houver nenhum atleta com este número retorna null.
