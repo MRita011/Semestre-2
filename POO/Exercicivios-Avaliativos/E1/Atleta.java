@@ -1,17 +1,18 @@
-
 // classe que representa um atleta da competição:
+import java.util.ArrayList;
 
-public class Atleta {
-
+public class Atleta
+{
 	private int numero;
 	private String nome;
 	private String pais;
+
 	private ArrayList<Medalha> medalhas; // Lista de medalhas do atleta
 
 	public Atleta(int numero, String nome, String pais) {
-		numero = this.numero;
-		nome = this.nome;
-		pais = this.pais;
+		this.numero = numero;
+		this.nome = nome;
+		this.pais = pais;
 		this.medalhas = new ArrayList<>();
 	}
 
@@ -31,9 +32,14 @@ public class Atleta {
 		return medalhas;
 	}
 
-	// adiciona uma nova medalha ao atleta
+// adiciona uma nova medalha ao atleta
 	public void adicionaMedalha(Medalha m) {
 		medalhas.add(m);
-		m.adicionaAtleta(this);
+	}
+
+//	retorna a quantidade de medalhas do atleta
+	public int consultaQuantidadeMedalha() {
+		int quant = medalhas.size();
+		return quant;
 	}
 }
