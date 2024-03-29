@@ -35,6 +35,10 @@ public class Medalha
 		return modalidade;
 	}
 
+	public ArrayList<Atleta> getAtletas() {
+		return atletas;
+	}
+
 
 // adiciona um atleta à medalha.
 	public void adicionaAtleta(Atleta a) {
