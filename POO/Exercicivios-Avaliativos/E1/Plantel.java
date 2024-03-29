@@ -30,13 +30,12 @@ public class Plantel
 	// Se não houver nenhum atleta com este nome retorna null.
 
 	public Atleta consultaAtleta(String nome) {
-	for (Atleta a : atletas) {
-		if (a.getNome().equals(nome))
-			return a;
+		for (Atleta a : atletas) {
+			if (a.getNome().equalsIgnoreCase(nome))
+				return a;
+		}
+		return null; // Retorna null se o atleta não for encontrado
 	}
-	return null;
-}
-
 
 	// retorna o atleta com o número indicado.
 	// Se não houver nenhum atleta com este número retorna null.
