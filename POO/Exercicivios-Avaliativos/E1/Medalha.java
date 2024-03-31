@@ -1,8 +1,7 @@
 // classe que representa uma medalha da competição:
 import java.util.ArrayList;
 
-public class Medalha
-{
+public class Medalha {
 
 	private int codigo;
 	private int tipo;
@@ -39,8 +38,7 @@ public class Medalha
 		return atletas;
 	}
 
-
-// adiciona um atleta à medalha.
+	// adiciona um atleta à medalha.
 	public void adicionaAtleta(Atleta a) {
 		atletas.add(a);
 	}
