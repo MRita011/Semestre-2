@@ -292,7 +292,9 @@ public class DoubleLinkedListOfInteger {
         return null;
     }
 
-    /* ***************************** T1 ***************************** */
+     /*****************************************************************************
+     /** T1 | Acrescentando métodos na implementação de Lista Duplamente Encadeada
+     /*****************************************************************************
 
     /**
         * Método que conta o número de ocorrências do elemento passado como parâmetro na lista, retornando este valor
