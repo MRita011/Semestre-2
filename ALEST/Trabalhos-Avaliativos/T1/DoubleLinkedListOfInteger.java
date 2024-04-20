@@ -11,6 +11,7 @@ public class DoubleLinkedListOfInteger {
     // Contador do número de elementos da lista.
     private int count;
 
+
     public DoubleLinkedListOfInteger() {
         header = new Node(null);
         trailer = new Node(null);
@@ -20,8 +21,8 @@ public class DoubleLinkedListOfInteger {
     }
 
     /*************************************************************************
-    /*** CREATE | Operações de inserção de dados na lista duplamente encadeada
-    /*************************************************************************
+     /*** CREATE | Operações de inserção de dados na lista duplamente encadeada
+     /*************************************************************************
 
      /**
      * Método add() padrão
@@ -45,7 +46,7 @@ public class DoubleLinkedListOfInteger {
     /**
      * Método add() em posição específica
      * Insere um elemento em uma determinada posicao da lista
-
+     *
      * @param index   a posicao da lista onde o elemento sera inserido
      * @param element elemento a ser inserido
      * @throws IndexOutOfBoundsException se (index < 0 || index > size())
@@ -77,9 +78,28 @@ public class DoubleLinkedListOfInteger {
         }
     }
 
+    /**
+     * Adiciona um elemento ao final da lista.
+     *
+     * @param element o elemento a ser adicionado ao final da lista
+     */
+    public void addLast(Integer element) {
+        // Cria um novo nodo com o elemento fornecido
+        Node newNode = new Node(element);
+
+        // Conecta o novo nodo ao último nodo atual e ao trailer
+        newNode.prev = trailer.prev;
+        newNode.next = trailer;
+        trailer.prev.next = newNode;
+        trailer.prev = newNode;
+
+        // Incrementa o contador de elementos
+        count++;
+    }
+
     /***********************************************************
-    /** READ | Operações de leitura de dados na lista encadeada
-    /***********************************************************
+     /** READ | Operações de leitura de dados na lista encadeada
+     /***********************************************************
 
      /**
      * Método get()
@@ -101,7 +121,7 @@ public class DoubleLinkedListOfInteger {
     /**
      * Método getNodeIndex()
      * Retorna a referencia para o nodo da posicao index
-
+     *
      * @param index índice para busca do nodo
      * @return aux retorna node do índice requerido
      */
@@ -124,9 +144,28 @@ public class DoubleLinkedListOfInteger {
         return aux;
     }
 
+    /**
+     * Retorna o primeiro elemento da lista encadeada.
+     *
+     * @return o primeiro elemento da lista encadeada, ou null se a lista estiver vazia.
+     */
+    public Integer getFirst() {
+        if (isEmpty()) {
+            return null; // Se a lista estiver vazia, retorna null
+        }
+        return header.next.element;
+    }
+
+    public Integer getLast() {
+        if (isEmpty()) {
+            return null; // Se a lista estiver vazia, retorna null
+        }
+        return trailer.prev.element;
+    }
+
     /*****************************************************************
-    /** UPDATE | Operações de substituição de dados na lista encadeada
-    /*****************************************************************
+     /** UPDATE | Operações de substituição de dados na lista encadeada
+     /*****************************************************************
 
      /**
      * Método set()
@@ -149,8 +188,8 @@ public class DoubleLinkedListOfInteger {
     }
 
     /*************************************************************
-    /** DELETE | Operações de remoção de dados na lista encadeada
-    /*************************************************************
+     /** DELETE | Operações de remoção de dados na lista encadeada
+     /*************************************************************
 
      /*
      * Método remove()
@@ -176,6 +215,7 @@ public class DoubleLinkedListOfInteger {
     /**
      * Método removeByIndex()
      * Remove o elemento de uma determinada posicao da lista
+     *
      * @param index a posicao da lista
      * @return o elemento que foi removido da lista
      * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
@@ -200,9 +240,37 @@ public class DoubleLinkedListOfInteger {
         return aux.element;
     }
 
+    /**
+     * Remove e retorna o primeiro elemento da lista.
+     *
+     * @return o primeiro elemento da lista, ou null se a lista estiver vazia
+     */
+    public Integer removeFirst() {
+        // Verifica se a lista está vazia
+        if (isEmpty()) {
+            return null;
+        }
+
+        // Obtém o primeiro elemento da lista
+        Node firstNode = header.next;
+        Integer firstElement = firstNode.element;
+
+        // Remove o primeiro nodo atualizando os encadeamentos
+        header.next = firstNode.next;
+        firstNode.next.prev = header;
+
+        // Libera o nodo removido
+        firstNode = null;
+
+        // Decrementa o contador de elementos
+        count--;
+
+        return firstElement;
+    }
+
     /*********************
-    /*** OUTRAS OPERAÇÕES
-    /*********************
+     /*** OUTRAS OPERAÇÕES
+     /*********************
 
      /**
      * Retorna true se a lista contem o elemento especificado
@@ -239,7 +307,7 @@ public class DoubleLinkedListOfInteger {
         return -1;
     }
 
-//    Esvazia a lista
+    //    Esvazia a lista
     public void clear() {
         header = new Node(null);
         trailer = new Node(null);
@@ -250,6 +318,7 @@ public class DoubleLinkedListOfInteger {
 
     /**
      * Retorna o numero de elementos da lista
+     *
      * @return o numero de elementos da lista
      */
 
@@ -259,6 +328,7 @@ public class DoubleLinkedListOfInteger {
 
     /**
      * Retorna true se a lista não contem elementos
+     *
      * @return true se a lista não contem elementos
      */
 
@@ -275,6 +345,7 @@ public class DoubleLinkedListOfInteger {
     /**
      * Retorna o elemento da posicao corrente e faz current apontar para o proximo
      * elemento da lista.
+     *
      * @return elemento da posicao corrente
      */
 
@@ -291,7 +362,7 @@ public class DoubleLinkedListOfInteger {
      /** T1 | Estruturas de Dados Lineares e Complexidade de Algoritmos
      /******************************************************************
 
-    /**
+     /**
      * Método que conta o número de ocorrências do elemento passado como parâmetro na lista, retornando este valor
      * @param element elemento a ser inserido
      * @return valor inteiro relativo ao número de ocorrências encontradas
@@ -318,7 +389,7 @@ public class DoubleLinkedListOfInteger {
     /**
      * Método que percorre a lista removendo todos os elementos pares.
      * Defina os atributos necessários para este algoritmo, pois nenhum método já implementado pode ser chamado
-
+     *
      * @return true se houver alguma remoção, e false caso não tenham elementos pares e não seja feita remoção
      */
 
