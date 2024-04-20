@@ -36,11 +36,7 @@ public class App {
 
         System.out.println("\nList de trás para frente: " + dlist.toStringBackToFront());
 
-        System.out.println(
-                "\n/***************************************\n" +
-                        "/** T1 | PARTE 1: Implementação e testes\n" +
-                        "/***************************************\n"
-        );
+        System.out.println("\n/***************************************\n" + "/** T1 | PARTE 1: Implementação e testes\n" + "/***************************************\n");
 
         // Teste do método countOccurrences
         dlist.add(10);
