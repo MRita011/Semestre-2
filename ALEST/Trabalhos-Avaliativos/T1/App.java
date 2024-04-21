@@ -1,355 +1,169 @@
-/**
- * CLASSE DoubleLinkedListOfInteger
- * Trabalhando com estruturas lineares em formato de listas duplamente encadeadas
- */
+public class App
+{
+    public static void main(String[] args) {
+        System.out.println(
+                "/**************************************************\n"  +
+                "/** NOMES | Alexya Ungaratti e Maria Rita Rodrigues \n" +
+                "/**************************************************\n"
+        );
 
-public class DoubleLinkedListOfInteger {
+        DoubleLinkedListOfInteger dlist = new DoubleLinkedListOfInteger();
+        dlist.add(10);
+        dlist.add(20);
+        dlist.add(30);
+        dlist.add(40);
+        dlist.add(50);
+        dlist.add(60);
+        dlist.add(70);
+        dlist.add(80);
 
-    // Referência para o sentinela de início da lista encadeada.
-    private Node header;
-    // Referência para o sentinela de fim da lista encadeada.
-    private Node trailer;
-    // Referência para a posição corrente.
-    private Node current;
-    // Contador do número de elementos da lista.
-    private int count;
+        System.out.println("Lista atual: " + dlist);
+        System.out.println("Tamanho da lista: " + dlist.size());
 
-    public DoubleLinkedListOfInteger() {
-        header = new Node(null);
-        trailer = new Node(null);
-        header.next = trailer;
-        trailer.prev = header;
-        count = 0;
-    }
+        System.out.println("\nBusca valor na posição 2: " + dlist.get(2));
+        System.out.println("Busca valor na posição 6: " + dlist.get(6));
 
-    /**********************************************************************************
-     /*** CREATE | Operações de inserção de dados na lista duplamente encadeada
-     /**********************************************************************************
+        System.out.println("\nTrocou " + dlist.set(2, 35) + " por 35 na posicao 2.");
 
-     /**
-     * Método add() padrão
-     * Adiciona um elemento ao final da lista
-     * @param element elemento a ser adicionado ao final da lista
-     */
-    public void add(Integer element) {
-        // Primeiro cria o nodo
-        Node n = new Node(element);
-        // Conecta o nodo criado na lista
-        n.prev = trailer.prev;
-        n.next = trailer;
-        // Atualiza os encadeamentos
-        trailer.prev.next = n;
-        trailer.prev = n;
-        // Atualiza count
-        count++;
-    }
+        System.out.println("Removeu 50? " + dlist.remove(50));
+        System.out.println("Removeu 57? " + dlist.remove(57));
 
-    /**
-     * Método add() em posição específica
-     * Insere um elemento em uma determinada posicao da lista
-     *
-     * @param index   a posicao da lista onde o elemento sera inserido
-     * @param element elemento a ser inserido
-     * @throws IndexOutOfBoundsException se (index < 0 || index > size())
-     */
-    public void add(int index, Integer element) {
-        // Primeiro verifica se index é válido
-        if (index < 0 || index > count)
-            throw new IndexOutOfBoundsException();
+        System.out.println("\nLista atual: " + dlist);
 
-        if (index == count) { // se inserção no final
-            this.add(element);
-        } else {
-            // Primeiro cria o nodo
-            Node n = new Node(element);
-            // "Caminha" até a posição index
-            Node aux = this.getNodeIndex(index);
-            // "Encadear" o nodo na lista
-            n.next = aux;
-            n.prev = aux.prev;
-            aux.prev.next = n;
-            aux.prev = n;
-            // Atualiza o count
-            count++;
+        dlist.add(0, 0);
+        dlist.add(dlist.size(), 90);
+        dlist.add(4, 44);
+        System.out.println("Lista atual: " + dlist);
+
+        System.out.println("\nList de trás para frente: " + dlist.toStringBackToFront());
+
+        System.out.println("\n/***************************************\n" + "/** T1 | PARTE 1: Implementação e testes\n" + "/***************************************\n");
+
+        // Teste do método countOccurrences
+        dlist.add(10);
+        System.out.println("Lista após add(10): " + dlist);
+        System.out.println("Número de ocorrências do n° 10: " + dlist.countOccurrences(10));
+
+        // Teste do método removeEvenNumbers
+        boolean removed = dlist. removeEvenNumbers();
+
+        System.out.println("\nLista atual após a remoção dos números pares: " + dlist);
+        System.out.println("Tamanho da lista: " + dlist.size());
+
+
+        System.out.println("\n/***************************************\n" + "/** T1 | PARTE 2: Implementação da pilha\n" + "/***************************************\n");
+
+        // Instanciando a pilha
+        StackOfInteger pilha = new StackOfInteger();
+
+        // Inserindo elementos na pilha (pegou a referência?! (๑˃ᴗ˂)ﻭ)
+        pilha.push(0);
+        pilha.push(10);
+        pilha.push(20);
+        pilha.push(35);
+        pilha.push(44);
+        pilha.push(40);
+        pilha.push(60);
+        pilha.push(70);
+        pilha.push(80);
+        pilha.push(90);
+
+        // Mostrando todos os elementos da pilha
+        System.out.println("Elementos da pilha: " + pilha.stackToString(pilha));
+        System.out.println("Tamanho da pilha: " + pilha.size());
+
+        // Mostrando o topo da pilha
+        System.out.println("Top: " + pilha.top());
+
+        // Removendo um elemento da pilha
+        System.out.println("Pop: " + pilha.pop());
+
+        // Verificando o tamanho da pilha
+        System.out.println("Size: " + pilha.size());
+
+        // Verificando se a pilha está vazia
+        System.out.println("\nA pilha está vazia? " + pilha.isEmpty());
+
+        // Limpando a pilha
+        pilha.clear();
+
+        // Verificando se a pilha está vazia após o clear
+        System.out.println("A pilha está vazia (após limpar)? " + pilha.isEmpty());
+
+        // Mostrando a pilha após o clear
+        System.out.println("Elementos da pilha: " + pilha.stackToString(pilha));
+
+
+        System.out.println("\n/******************************************\n" + "/** T1 | PARTE 2.1: Implementação da pilha\n" + "/******************************************\n");
+
+        // Testando o método reverseArrayUsingStack()
+        int[] array = {1, 2, 3, 4, 5};
+        System.out.print("Array  original: ");
+        for (int num : array) {
+            System.out.print(num + " | ");
         }
-    }
 
-    /**********************************************************************************
-     /*** READ | Operações de leitura de dados na lista encadeada
-     /**********************************************************************************
+        StackOfInteger.reverseArrayUsingStack(array);
 
-     /**
-     * Método get()
-     * Retorna o elemento de uma determinada posicao da lista
-     * @param index a posicao da lista
-     * @return o elemento da posicao especificada
-     * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
-     */
-    public Integer get(int index) {
-        // Primeiro verifica se o indice eh valido
-        if (index < 0 || index >= count)
-            throw new IndexOutOfBoundsException();
-
-        Node aux = getNodeIndex(index);
-        return aux.element;
-    }
-
-    /**
-     * Método getNodeIndex()
-     * Retorna a referencia para o nodo da posicao index
-     *
-     * @param index índice para busca do nodo
-     * @return aux retorna node do índice requerido
-     */
-    private Node getNodeIndex(int index) {
-        Node aux = null;
-
-        if (index < count / 2) { // caminha do inicio para o meio
-            aux = header.next;
-            for (int i = 0; i < index; i++) {
-                aux = aux.next;
-            }
-        } else { // caminha do fim para o meio
-            aux = trailer.prev;
-            for (int i = count - 1; i > index; i--) {
-                aux = aux.prev;
-            }
+        System.out.print("\nArray invertido: ");
+        for (int num : array) {
+            System.out.print(num + " | ");
         }
-        return aux;
-    }
 
+        System.out.println("\n\n/***************************************\n" + "/** T1 | PARTE 3: Implementação da fila\n" + "/***************************************\n");
 
-    /**********************************************************************************
-     /*** UPDATE | Operações de substituição de dados na lista encadeada
-     /**********************************************************************************
+        // Instanciando a fila
+        QueueOfInterger fila = new QueueOfInterger();
 
-     /**
-     * Método set()
-     * Substitui o elemento armanzenado em uma determinada posicao da lista pelo elemento indicado
-     * @param index a posicao da lista
-     * @param element o elemento a ser armazenado na lista
-     * @return o elemento armazenado anteriormente na posicao da lista
-     * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
-     */
-    public Integer set(int index, Integer element) {
-        // Primeiro verifica se index eh valido
-        if (index < 0 || index >= count)
-            throw new IndexOutOfBoundsException();
+        // Adicionando elementos à fila
+        fila.enqueue(10);
+        fila.enqueue(20);
+        fila.enqueue(35);
+        fila.enqueue(44);
+        fila.enqueue(40);
+        fila.enqueue(60);
+        fila.enqueue(70);
+        fila.enqueue(80);
+        fila.enqueue(90);
+        fila.enqueue(11);
 
-        Node aux = getNodeIndex(index);
-        Integer elem = aux.element;
-        aux.element = element;
-        return elem;
-    }
+        // Elementos da fila
+        System.out.println("Elementos da fila: " + fila.queueToString(fila));
 
-    /**********************************************************************************
-     /*** DELETE | Operações de remoção de dados na lista encadeada
-     /**********************************************************************************
+        // Imprimindo o tamanho da fila
+        System.out.println("Tamanho da fila: " + fila.size());
 
-     /**
-     * Método remove()
-     * Remove a primeira ocorrencia do elemento na lista, se estiver presente
-     * @param element o elemento a ser removido
-     * @return true se a lista contem o elemento especificado
-     */
-    public boolean remove(Integer element) {
-        Node aux = header.next;
-        for (int i = 0; i < count; i++) {
-            if (aux.element.equals(element)) {
-                aux.prev.next = aux.next;
-                aux.next.prev = aux.prev;
-                count--;
-                return true;
-            }
-            aux = aux.next;
+        // Imprimindo o elemento na frente da fila
+        System.out.println("Head: " + fila.head());
+
+        // Removendo elementos da fila
+        System.out.println("\nDequeue: " + fila.dequeue());
+        System.out.println("Dequeue: " + fila.dequeue());
+        System.out.println("Dequeue: " + fila.dequeue());
+        System.out.println("Dequeue: " + fila.dequeue());
+
+        System.out.println("\nElementos da fila: " + fila.queueToString(fila));
+        System.out.println("Tamanho da fila: " + fila.size());
+
+        // Verificando se a fila está vazia após a remoção
+        System.out.println("\nA fila está vazia? " + fila.isEmpty());
+
+        // Testando o método enqueuePriority()
+        int size = fila.size();
+        for (int i = 0; i < size; i++) {
+            Integer element = fila.dequeue();
+            fila.enqueuePriority(element);
         }
-        return false;
-    }
 
-    /**
-     * Método removeByIndex()
-     * Remove o elemento de uma determinada posicao da lista
-     *
-     * @param index a posicao da lista
-     * @return o elemento que foi removido da lista
-     * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
-     */
-    public Integer removeByIndex(int index) {
-        // Primeiro verifica se index eh valido
-        if (index < 0 || index >= count)
-            throw new IndexOutOfBoundsException();
+        // Imprimindo a fila de prioridade
+        System.out.println("Elementos da fila de prioridade: " + fila.queueToString(fila));
+        System.out.println("Tamanho da fila de prioridade: " + fila.size());
 
-        // "Caminha" ate a posicao index
-        Node aux = getNodeIndex(index);
+        // Limpando a fila
+        fila.clear();
 
-        // Faz a remocao
-        aux.next.prev = aux.prev;
-        aux.prev.next = aux.next;
-
-        // Atualiza count
-        count--;
-
-        // Retorna o elemento removido
-        return aux.element;
-    }
-
-    /**********************************************************************************
-     /*** OUTRAS OPERAÇÕES
-     /**********************************************************************************
-
-     /**
-     * Retorna true se a lista contem o elemento especificado
-     * @param element o elemento a ser testado
-     * @return true se a lista contém o elemento especificado
-     */
-    public boolean contains(Integer element) {
-
-        Node aux = header.next;
-        for (int i = 0; i < count; i++) {
-            if (aux.element.equals(element))
-                return true;
-
-            aux = aux.next;
-        }
-        return false;
-    }
-
-    /**
-     * Retorna o indice da primeira ocorrencia do elemento na lista, ou -1 se a lista não contém o elemento
-     *
-     * @param element o elemento a ser buscado
-     * @return o indice da primeira ocorrencia do elemento na lista, ou -1 se a lista não contém o elemento
-     */
-    public int indexOf(Integer element) {
-        Node aux = header.next;
-        for (int i = 0; i < count; i++) {
-            if (aux.element.equals(element))
-                return i;
-
-            aux = aux.next;
-        }
-        return -1;
-    }
-
-    /**
-     * Esvazia a lista
-     */
-    public void clear() {
-        header = new Node(null);
-        trailer = new Node(null);
-        header.next = trailer;
-        trailer.prev = header;
-        count = 0;
-    }
-
-    /**
-     * Retorna o numero de elementos da lista
-     *
-     * @return o numero de elementos da lista
-     */
-    public int size() {
-        return count;
-    }
-
-    /**
-     * Retorna true se a lista não contem elementos
-     *
-     * @return true se a lista não contem elementos
-     */
-    public boolean isEmpty() {
-        return (count == 0);
-    }
-
-    /**
-     * Inicializa o current na primeira posicao (para percorrer do inicio para o fim).
-     */
-    public void reset() {
-        current = header.next;
-    }
-
-    /**
-     * Retorna o elemento da posicao corrente e faz current apontar para o proximo
-     * elemento da lista.
-     *
-     * @return elemento da posicao corrente
-     */
-    public Integer next() {
-        if (current != trailer) {
-            Integer num = current.element;
-            current = current.next;
-            return num;
-        }
-        return null;
-    }
-
-    /*******************************************************************
-     /** T1 | Estruturas de Dados Lineares e Complexidade de Algoritmos
-     /******************************************************************
-
-     /**
-     * Método que conta o número de ocorrências do elemento passado como parâmetro na lista, retornando este valor
-     * @param element elemento a ser inserido
-     * @return valor inteiro relativo ao número de ocorrências encontradas
-     */
-
-    public int countOccurrences(Integer element) {
-        int occurrences = 0;
-        Node aux = header.next;
-
-        for (int i = 0; i < count; i++) {
-            if (aux.element.equals(element))
-                occurrences++;
-
-            aux = aux.next;
-        }
-        return occurrences;
-    }
-
-    /**
-     * Método que percorre a lista removendo todos os elementos pares.
-     * Defina os atributos necessários para este algoritmo, pois nenhum método já implementado pode ser chamado
-     *
-     * @return true se houver alguma remoção, e false caso não tenham elementos pares e não seja feita remoção
-     */
-
-    public boolean removeEvenNumbers() {
-        if (isEmpty())
-            return false;
-
-        boolean removed = false;
-        Node current = header.next; // Inicializa os ponteiros para percorrer a lista
-
-        // Percorre a lista
-        while (current != trailer) {
-            if (current.element % 2 == 0) {
-                if (remove(current.element))
-                    removed = true;
-            }
-            current = current.next;
-        }
-        return removed;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        Node aux = header.next;
-        for (int i = 0; i < count; i++) {
-            s.append(aux.element.toString());
-            s.append(" | ");
-            aux = aux.next;
-        }
-        return s.toString();
-    }
-
-    public String toStringBackToFront() {
-        StringBuilder s = new StringBuilder();
-        Node aux = trailer.prev;
-        for (int i = 0; i < count; i++) {
-            s.append(aux.element.toString());
-            s.append(" | ");
-            aux = aux.prev;
-        }
-        return s.toString();
+        // Verificando se a fila está vazia após o clear
+        System.out.println("\nA fila está vazia (após limpar)? " + fila.isEmpty());
+        System.out.println("Tamanho da fila (após limpar): " + fila.size());
     }
 }
