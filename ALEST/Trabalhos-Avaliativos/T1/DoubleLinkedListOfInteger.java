@@ -1,16 +1,13 @@
-public class DoubleLinkedListOfInteger {
+public class DoubleLinkedListOfInteger 
+{
     // Referência para o sentinela de início da lista encadeada.
     private Node header;
-
     // Referência para o sentinela de fim da lista encadeada.
     private Node trailer;
-
     // Referência para a posição corrente.
     private Node current;
-
     // Contador do número de elementos da lista.
     private int count;
-
 
     public DoubleLinkedListOfInteger() {
         header = new Node(null);
@@ -20,16 +17,15 @@ public class DoubleLinkedListOfInteger {
         count = 0;
     }
 
-    /*************************************************************************
+    /***************************************************************************
      /*** CREATE | Operações de inserção de dados na lista duplamente encadeada
-     /*************************************************************************
+     /**************************************************************************
 
      /**
      * Método add() padrão
      * Adiciona um elemento ao final da lista
      * @param element elemento a ser adicionado ao final da lista
      */
-
     public void add(Integer element) {
         // Primeiro cria o nodo
         Node n = new Node(element);
@@ -51,55 +47,31 @@ public class DoubleLinkedListOfInteger {
      * @param element elemento a ser inserido
      * @throws IndexOutOfBoundsException se (index < 0 || index > size())
      */
-
     public void add(int index, Integer element) {
         // Primeiro verifica se index é válido
         if (index < 0 || index > count)
             throw new IndexOutOfBoundsException();
 
-        if (index == count) // se inserção no final
+        if (index == count) { // se inserção no final
             this.add(element);
-
-        else {
+        } else {
             // Primeiro cria o nodo
             Node n = new Node(element);
-
             // "Caminha" até a posição index
             Node aux = this.getNodeIndex(index);
-
             // "Encadear" o nodo na lista
             n.next = aux;
             n.prev = aux.prev;
             aux.prev.next = n;
             aux.prev = n;
-
             // Atualiza o count
             count++;
         }
     }
 
-    /**
-     * Adiciona um elemento ao final da lista.
-     *
-     * @param element o elemento a ser adicionado ao final da lista
-     */
-    public void addLast(Integer element) {
-        // Cria um novo nodo com o elemento fornecido
-        Node newNode = new Node(element);
-
-        // Conecta o novo nodo ao último nodo atual e ao trailer
-        newNode.prev = trailer.prev;
-        newNode.next = trailer;
-        trailer.prev.next = newNode;
-        trailer.prev = newNode;
-
-        // Incrementa o contador de elementos
-        count++;
-    }
-
-    /***********************************************************
-     /** READ | Operações de leitura de dados na lista encadeada
-     /***********************************************************
+    /*************************************************************
+     /*** READ | Operações de leitura de dados na lista encadeada
+     /************************************************************
 
      /**
      * Método get()
@@ -108,7 +80,6 @@ public class DoubleLinkedListOfInteger {
      * @return o elemento da posicao especificada
      * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
      */
-
     public Integer get(int index) {
         // Primeiro verifica se o indice eh valido
         if (index < 0 || index >= count)
@@ -125,7 +96,6 @@ public class DoubleLinkedListOfInteger {
      * @param index índice para busca do nodo
      * @return aux retorna node do índice requerido
      */
-
     private Node getNodeIndex(int index) {
         Node aux = null;
 
@@ -136,7 +106,6 @@ public class DoubleLinkedListOfInteger {
             }
         } else { // caminha do fim para o meio
             aux = trailer.prev;
-
             for (int i = count - 1; i > index; i--) {
                 aux = aux.prev;
             }
@@ -144,28 +113,10 @@ public class DoubleLinkedListOfInteger {
         return aux;
     }
 
-    /**
-     * Retorna o primeiro elemento da lista encadeada.
-     *
-     * @return o primeiro elemento da lista encadeada, ou null se a lista estiver vazia.
-     */
-    public Integer getFirst() {
-        if (isEmpty()) {
-            return null; // Se a lista estiver vazia, retorna null
-        }
-        return header.next.element;
-    }
 
-    public Integer getLast() {
-        if (isEmpty()) {
-            return null; // Se a lista estiver vazia, retorna null
-        }
-        return trailer.prev.element;
-    }
-
-    /*****************************************************************
-     /** UPDATE | Operações de substituição de dados na lista encadeada
-     /*****************************************************************
+    /********************************************************************
+     /*** UPDATE | Operações de substituição de dados na lista encadeada
+     /*******************************************************************
 
      /**
      * Método set()
@@ -175,7 +126,6 @@ public class DoubleLinkedListOfInteger {
      * @return o elemento armazenado anteriormente na posicao da lista
      * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
      */
-
     public Integer set(int index, Integer element) {
         // Primeiro verifica se index eh valido
         if (index < 0 || index >= count)
@@ -187,17 +137,16 @@ public class DoubleLinkedListOfInteger {
         return elem;
     }
 
-    /*************************************************************
-     /** DELETE | Operações de remoção de dados na lista encadeada
-     /*************************************************************
+    /***************************************************************
+     /*** DELETE | Operações de remoção de dados na lista encadeada
+     /**************************************************************
 
-     /*
+     /**
      * Método remove()
      * Remove a primeira ocorrencia do elemento na lista, se estiver presente
      * @param element o elemento a ser removido
      * @return true se a lista contem o elemento especificado
      */
-
     public boolean remove(Integer element) {
         Node aux = header.next;
         for (int i = 0; i < count; i++) {
@@ -220,7 +169,6 @@ public class DoubleLinkedListOfInteger {
      * @return o elemento que foi removido da lista
      * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
      */
-
     public Integer removeByIndex(int index) {
         // Primeiro verifica se index eh valido
         if (index < 0 || index >= count)
@@ -240,35 +188,7 @@ public class DoubleLinkedListOfInteger {
         return aux.element;
     }
 
-    /**
-     * Remove e retorna o primeiro elemento da lista.
-     *
-     * @return o primeiro elemento da lista, ou null se a lista estiver vazia
-     */
-    public Integer removeFirst() {
-        // Verifica se a lista está vazia
-        if (isEmpty()) {
-            return null;
-        }
-
-        // Obtém o primeiro elemento da lista
-        Node firstNode = header.next;
-        Integer firstElement = firstNode.element;
-
-        // Remove o primeiro nodo atualizando os encadeamentos
-        header.next = firstNode.next;
-        firstNode.next.prev = header;
-
-        // Libera o nodo removido
-        firstNode = null;
-
-        // Decrementa o contador de elementos
-        count--;
-
-        return firstElement;
-    }
-
-    /*********************
+    /**********************
      /*** OUTRAS OPERAÇÕES
      /*********************
 
@@ -277,8 +197,8 @@ public class DoubleLinkedListOfInteger {
      * @param element o elemento a ser testado
      * @return true se a lista contém o elemento especificado
      */
-
     public boolean contains(Integer element) {
+
         Node aux = header.next;
         for (int i = 0; i < count; i++) {
             if (aux.element.equals(element))
@@ -295,7 +215,6 @@ public class DoubleLinkedListOfInteger {
      * @param element o elemento a ser buscado
      * @return o indice da primeira ocorrencia do elemento na lista, ou -1 se a lista não contém o elemento
      */
-
     public int indexOf(Integer element) {
         Node aux = header.next;
         for (int i = 0; i < count; i++) {
@@ -307,7 +226,9 @@ public class DoubleLinkedListOfInteger {
         return -1;
     }
 
-    //    Esvazia a lista
+    /**
+     * Esvazia a lista
+     */
     public void clear() {
         header = new Node(null);
         trailer = new Node(null);
@@ -321,7 +242,6 @@ public class DoubleLinkedListOfInteger {
      *
      * @return o numero de elementos da lista
      */
-
     public int size() {
         return count;
     }
@@ -331,13 +251,13 @@ public class DoubleLinkedListOfInteger {
      *
      * @return true se a lista não contem elementos
      */
-
     public boolean isEmpty() {
         return (count == 0);
     }
 
-//    Inicializa o current na primeira posicao (para percorrer do inicio para o fim).
-
+    /**
+     * Inicializa o current na primeira posicao (para percorrer do inicio para o fim).
+     */
     public void reset() {
         current = header.next;
     }
@@ -348,7 +268,6 @@ public class DoubleLinkedListOfInteger {
      *
      * @return elemento da posicao corrente
      */
-
     public Integer next() {
         if (current != trailer) {
             Integer num = current.element;
@@ -369,18 +288,13 @@ public class DoubleLinkedListOfInteger {
      */
 
     public int countOccurrences(Integer element) {
-        // Variável para contar o número de ocorrências
         int occurrences = 0;
-
-        // Inicializa aux apontando para o primeiro nodo apos o head
         Node aux = header.next;
 
-        // Caminha pela lista encadeada comparando os elementos com o parametro
         for (int i = 0; i < count; i++) {
             if (aux.element.equals(element))
                 occurrences++;
 
-            // Avança para o proximo nodo
             aux = aux.next;
         }
         return occurrences;
@@ -394,34 +308,19 @@ public class DoubleLinkedListOfInteger {
      */
 
     public boolean removeEvenNumbers() {
-        // Verifica se a lista está vazia
         if (isEmpty())
             return false;
 
-        // Inicializa o retorno como false
         boolean removed = false;
-
-        // Inicializa os ponteiros para percorrer a lista
-        Node prev = header;
-        Node current = header.next;
+        Node current = header.next; // Inicializa os ponteiros para percorrer a lista
 
         // Percorre a lista
         while (current != trailer) {
-            // Verifica se o elemento atual é par
             if (current.element % 2 == 0) {
-                // Remove o elemento par ajustando os ponteiros
-                prev.next = current.next;
-                current.next.prev = prev;
-
-                current = current.next; // Avança o ponteiro sem avançar o anterior
-
-                count--; // Decrementa o contador de elementos
-                removed = true; // Indica que houve remoção
-            } else {
-                // Avança os ponteiros
-                prev = current;
-                current = current.next;
+                if (remove(current.element))
+                    removed = true;
             }
+            current = current.next;
         }
         return removed;
     }
